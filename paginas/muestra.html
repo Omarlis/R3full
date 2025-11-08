@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="../imagenes/r3.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cinta de Película</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+  margin: 0;
+  padding: 0;
+  background: url('https://cdn.pixabay.com/photo/2018/02/15/14/37/paper-3155438_960_720.jpg') no-repeat center top;
+  background-size: cover; /* Ajusta la imagen al tamaño de la pantalla */
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+       }
+
+
+    /* Contenedor de la cinta */
+    .pelicula {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin: 40px auto;
+      width: 90%;
+    }
+
+    /* Cuadros individuales */
+    .cuadro {
+      width: 160px;
+      height: 160px;
+      overflow: hidden;
+      border: 4px solid black;
+      background-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    }
+
+    .cuadro img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    /* Efecto al pasar el mouse */
+    .cuadro img:hover {
+      transform: scale(1.1);
+    }
+
+    /* ==== CONTENEDOR DE RECICLAJE (reemplaza el footer) ==== */
+    .reciclaje {
+      background-color: rgba(0, 0, 0, 0.8);
+      border: 2px solid #1db954; /* verde reciclaje */
+      border-radius: 12px;
+      width: 80%;
+      max-width: 800px;
+      margin: 60px auto 80px auto;
+      padding: 30px 40px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+    }
+
+    .reciclaje h2 {
+      color: #1db954;
+      font-size: 22px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .reciclaje ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
+
+    .reciclaje li {
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #e0e0e0;
+      line-height: 1.5;
+      padding-left: 15px;
+      position: relative;
+    }
+
+    .reciclaje li::before {
+      content: "♻️";
+      position: absolute;
+      left: -5px;
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="pelicula">
+    <div class="cuadro"><img src="../imagenes/clover.webp" alt="trevol"></div>
+    <div class="cuadro"><img src="../imagenes/1.jpg" alt="Imagen 2"></div>
+    <div class="cuadro"><img src="../imagenes/2.jpg" alt="Imagen 3"></div>
+    <div class="cuadro"><img src="../imagenes/3.jpeg" alt="Imagen 4"></div>
+    <div class="cuadro"><img src="../imagenes/5.jpg" alt="Imagen 5"></div>
+    <div class="cuadro"><img src="../imagenes/6.jpg" alt="Imagen 10"></div>
+  </div>
+
+  <div class="pelicula">
+    <div class="cuadro"><img src="../imagenes/7.jpg" alt="Imagen 6"></div>
+    <div class="cuadro"><img src="../imagenes/8.jpeg" alt="Imagen 7"></div>
+    <div class="cuadro"><img src="../imagenes/9.jpeg" alt="Imagen 8"></div>
+    <div class="cuadro"><img src="../imagenes/10.jpg" alt="Imagen 9"></div>
+    <div class="cuadro"><img src="../imagenes/11.jpg" alt="Imagen 10"></div>
+    <div class="cuadro"><img src="../imagenes/12.jpg" alt="Imagen 10"></div>
+  </div>
+
+  <!-- 🔹 Nuevo contenedor en lugar del footer -->
+  <section class="reciclaje">
+    <h2>Organizaciones de reciclaje para dejar tu huella</h2>
+    <ul>
+      <li>ASOBOCE – Asociación de Reciclaje Industrial y Residencial de Cali.</li>
+      <li>FURVIN – Fundación Recicla Vida Integral.</li>
+      <li>Asociación EcoVive de Colombia.</li>
+      <li>Asociación de Recicladores por Colombia (ARPC).</li>
+      <li>Cooperativa Planeta Verde.</li>
+    </ul>
+  </section>
+</body>
+<script>
+const usuario = sessionStorage.getItem('usuario');
+    if (usuario !== "user") {
+        alert('Acceso denegado. Redirigiendo...');
+        window.location.href = '../index.html';
+    }
+
+</script>
+<!-- Botón regresar -->
+<button class="btn-back" id="btnBack" aria-label="Regresar a la página anterior" title="Regresar">
+  <!-- Flecha SVG -->
+  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+    <path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <span class="btn-back__text">Regresar</span>
+</button>
+
+<style>
+  /* Estilos del botón */
+  .btn-back{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 12px;
+    border-radius:8px;
+    border: none;
+    background: #0b74da;      /* color de fondo (cambiar aquí) */
+    color: white;             /* color del texto y la flecha */
+    font-weight:600;
+    cursor:pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn-back svg{
+    display:block;
+  }
+
+  .btn-back:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(11,116,218,0.18);
+  }
+
+  .btn-back:active{
+    transform: translateY(0);
+    opacity: .95;
+  }
+
+  /* Para versiones móviles (más pequeño) */
+  @media (max-width:480px){
+    .btn-back{ padding:6px 10px; border-radius:7px; }
+    .btn-back__text{ font-size:14px; }
+  }
+
+  /* Si quieres que el botón sea transparente con borde */
+  .btn-back--ghost{
+    background: transparent;
+    border: 1.5px solid #0b74da;
+    color: #0b74da;
+    box-shadow: none;
+  }
+</style>
+
+<script>
+  (function(){
+    const btn = document.getElementById('btnBack');
+    btn.addEventListener('click', function(e){
+      // Intentar volver en el historial
+      if (window.history && window.history.length > 1) {
+        window.history.back();
+        return;
+      }
+      // Si no hay historial, usar document.referrer (si existe), sino ir a la raíz
+      if (document.referrer) {
+        // Si el referrer es del mismo dominio preféreselo (evita abrir en sitios externos)
+        try {
+          const refUrl = new URL(document.referrer);
+          // Opción: comprobar dominio actual
+          if (refUrl.hostname === location.hostname) {
+            location.href = document.referrer;
+            return;
+          }
+        } catch (err) { /* ignorar */ }
+
+        // Si no es mismo dominio, aún podemos redirigir a referrer:
+        location.href = document.referrer;
+        return;
+      }
+
+      // Fallback: ir a la página principal (cambia esta URL si quieres otra)
+      location.href = '/';
+    });
+  })();
+</script>
+
+</html>

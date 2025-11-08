@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="/imagenes/r3.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sugerencias</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .form-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      text-align: left;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    textarea {
+      resize: none;
+      height: 80px;
+    }
+
+    input[type="submit"] {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    input[type="submit"]:hover {
+      background: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>Sugerencias</h1>
+    <form id="reviewForm" method="post">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" required>
+
+      <label for="gusto">¿Qué te gustó?</label>
+      <textarea id="gusto" name="gusto" required></textarea>
+
+      <label for="mejora">¿Qué mejorarías?</label>
+      <textarea id="mejora" name="mejora" required></textarea>
+
+      <input type="submit" value="Enviar">
+    </form>
+  </div>
+  <script>
+  document.getElementById("reviewForm").addEventListener("submit", async function (e) {
+    e.preventDefault(); // Evita que se recargue la página
+
+    // Obtener los datos del formulario
+    const nombre = document.getElementById("nombre").value.trim();
+    const gusto = document.getElementById("gusto").value.trim();
+    const mejora = document.getElementById("mejora").value.trim();
+
+    // Concatenar contenido
+    const contenido = `Me gustó: ${gusto}\nMejoraría: ${mejora}`;
+
+    try {
+      const id = sessionStorage.getItem('id');
+      const response = await fetch("http://localhost:4000/api/reviews", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          usuario_id: id,
+          contenido: contenido
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("✅ ¡Gracias por tu review! Será revisada pronto.");
+        document.getElementById("reviewForm").reset(); // Limpiar formulario
+      } else {
+        alert("❌ Error al enviar review: " + (data.error || "Intenta de nuevo más tarde"));
+      }
+    } catch (error) {
+      console.error("Error en fetch:", error);
+      alert("❌ Error de conexión. Intenta de nuevo.");
+    }
+  });
+</script>
+
+</body>
+</html>

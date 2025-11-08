@@ -1,0 +1,15 @@
+.juegos {
+
+    widht:80%;
+    height: 80%;
+}
+#l {
+
+width: 20%;
+height: 20%;
+border-radius: 50%;
+}
+.l{
+    border-radius: 50%;
+    padding: 10px 24px;
+    }

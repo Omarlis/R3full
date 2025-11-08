@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reseñas de Usuarios</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #333;
+    }
+
+    .review-card {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      padding: 20px;
+      transition: transform 0.2s;
+    }
+
+    .review-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .review-user {
+      font-weight: 600;
+      color: #444;
+    }
+
+    .review-date {
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    .review-content {
+      white-space: pre-line;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .empty-message {
+      text-align: center;
+      color: #888;
+      font-size: 1.1rem;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Reseñas de Usuarios</h1>
+    <div id="reviews-container">
+      <!-- Las reseñas visibles se insertarán aquí -->
+    </div>
+  </div>
+
+  <script>
+    // API que llama al controlador obtenerReviews
+    const API_URL = 'http://localhost:4000/api/reviews';
+
+    async function cargarResenasVisibles() {
+      const contenedor = document.getElementById('reviews-container');
+
+      try {
+        const response = await fetch(API_URL);
+        if (!response.ok) {
+          throw new Error('No se pudo cargar las reseñas');
+        }
+
+        const data = await response.json();
+
+        if (!Array.isArray(data) || data.length === 0) {
+          contenedor.innerHTML = '<p class="empty-message">No hay reseñas disponibles todavía.</p>';
+          return;
+        }
+
+        data.forEach(review => {
+          const fecha = new Date(review.creado_en).toLocaleDateString('es-CO', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
+
+          const card = document.createElement('div');
+          card.className = 'review-card';
+          card.innerHTML = `
+            <div class="review-header">
+              <div class="review-user">Usuario #${review.usuario_id}</div>
+              <div class="review-date">${fecha}</div>
+            </div>
+            <div class="review-content">${review.contenido}</div>
+          `;
+
+          contenedor.appendChild(card);
+        });
+      } catch (error) {
+        console.error('Error al cargar reseñas:', error);
+        contenedor.innerHTML = '<p class="empty-message">Error al cargar las reseñas. Intenta más tarde.</p>';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', cargarResenasVisibles);
+
+    const usuario = sessionStorage.getItem('usuario');
+    if (usuario !== "user") {
+        alert('Acceso denegado. Redirigiendo...');
+        window.location.href = '../index.html';
+    }
+  </script>
+  <!-- Botón regresar -->
+<button class="btn-back" id="btnBack" aria-label="Regresar a la página anterior" title="Regresar">
+  <!-- Flecha SVG -->
+  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+    <path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <span class="btn-back__text">Regresar</span>
+</button>
+
+<style>
+  /* Estilos del botón */
+  .btn-back{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 12px;
+    border-radius:8px;
+    border: none;
+    background: #0b74da;      /* color de fondo (cambiar aquí) */
+    color: white;             /* color del texto y la flecha */
+    font-weight:600;
+    cursor:pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn-back svg{
+    display:block;
+  }
+
+  .btn-back:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(11,116,218,0.18);
+  }
+
+  .btn-back:active{
+    transform: translateY(0);
+    opacity: .95;
+  }
+
+  /* Para versiones móviles (más pequeño) */
+  @media (max-width:480px){
+    .btn-back{ padding:6px 10px; border-radius:7px; }
+    .btn-back__text{ font-size:14px; }
+  }
+
+  /* Si quieres que el botón sea transparente con borde */
+  .btn-back--ghost{
+    background: transparent;
+    border: 1.5px solid #0b74da;
+    color: #0b74da;
+    box-shadow: none;
+  }
+</style>
+
+<script>
+  (function(){
+    const btn = document.getElementById('btnBack');
+    btn.addEventListener('click', function(e){
+      // Intentar volver en el historial
+      if (window.history && window.history.length > 1) {
+        window.history.back();
+        return;
+      }
+      // Si no hay historial, usar document.referrer (si existe), sino ir a la raíz
+      if (document.referrer) {
+        // Si el referrer es del mismo dominio preféreselo (evita abrir en sitios externos)
+        try {
+          const refUrl = new URL(document.referrer);
+          // Opción: comprobar dominio actual
+          if (refUrl.hostname === location.hostname) {
+            location.href = document.referrer;
+            return;
+          }
+        } catch (err) { /* ignorar */ }
+
+        // Si no es mismo dominio, aún podemos redirigir a referrer:
+        location.href = document.referrer;
+        return;
+      }
+
+      // Fallback: ir a la página principal (cambia esta URL si quieres otra)
+      location.href = '/';
+    });
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+ <link rel="icon" type="image/x-icon" href="../imagenes/r3.jpg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recomendaciones</title>
+<style>
+  body {
+    font-family: "Poppins", sans-serif;
+    background-color: #88dfc1;
+    margin: 0;
+    padding: 0;
+  }
+
+  h2 {
+    text-align: left;
+    margin: 20px;
+    color: #2b463c;
+  }
+
+  .contenedor {
+    position: relative;
+    overflow: hidden;
+    margin: 20px;
+    background: #a6f1d5;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 25px 40px; /* espacio para que no tape las flechas */
+  }
+
+  .carrusel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .item {
+    min-width: 300px;
+    margin: 10px;
+    background: rgb(214, 217, 215);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+
+  .item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* mantiene proporción sin deformar */
+    display: block;
+  }
+
+  .info {
+    padding: 10px;
+  }
+
+  .info h3 {
+    margin: 5px 0;
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+
+  .info p {
+    font-size: 0.9em;
+    color: #555;
+  }
+
+  .flecha {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #4caf50;
+    color: white;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 50%;
+    z-index: 10; /* asegura que quede sobre las imágenes */
+    opacity: 0.9;
+    transition: 0.3s;
+  }
+
+  .flecha:hover {
+    background: #3e8e41;
+    opacity: 1;
+  }
+
+  .izq { left: 10px; }
+  .der { right: 10px; }
+
+</style>
+</head>
+<body>
+
+  <!-- Películas -->
+  <h2>🎬 Películas recomendadas</h2>
+  <div class="contenedor" id="peliculas">
+    <button class="flecha izq" onclick="mover('peliculas', -1)">&#10094;</button>
+    <div class="carrusel">
+      <div class="item"><img src="../imagenes/flow.webp" alt="Flow"><div class="info"><h3>Flow</h3><p>esta cinta sigue la historia de un gato negro que despierta en un mundo inundado, donde toda la humanidad ha desaparecido. En este entorno trágico y hostil, el minino se une a un grupo de animales con los que debe aprender a convivir y superar sus diferencias para sobrevivir.</p></div></div>
+      <div class="item"><img src="../imagenes/walle.webp" alt="WALL-E"><div class="info"><h3>WALL-E</h3><p> en un planeta Tierra devastado y sin vida, tras cientos de solitarios años haciendo aquello para lo que fue construido el pequeño robot WALL•E descubre una nueva misión en su vida.</p></div></div>
+      <div class="item"><img src="../imagenes/lorax.jpg" alt="Lorax"><div class="info"><h3>Lorax</h3><p>Un chico se propone conquistar el afecto de la chica de sus sueños. Para conseguirlo, debe averiguar la historia del Lorax, una encantadora aunque gruñona criatura que lucha por proteger un mundo en vías de extinción.</p></div></div>
+      <div class="item"><img src="../imagenes/buscando a nemo.webp" alt="Buscando a Nemo"><div class="info"><h3>Buscando a Nemo</h3><p>El pececillo Nemo, que es hijo único, es muy querido y protegido por su padre. Después de ser capturado en un arrecife australiano va a parar a la pecera de la oficina de un dentista de Sidney.</p></div></div>
+      <div class="item"><img src="../imagenes/TOTORO.webp" alt="Mi vecino Totoro"><div class="info"><h3>Mi vecino Totoro</h3><p>El padre es un profesor universitario que estimula la imaginación de sus hijas relatándoles fábulas e historias mágicas sobre duendes, fantasmas y espíritus protectores de los hogares.</p></div></div>
+      <div class="item"><img src="../imagenes/Hielo.jpeg" alt="La era de Hielo"><div class="info"><h3>La era de Hielo</h3><p>La película narra cómo la Tierra vive un período de glaciación. Es la Edad del Hielo y la tercera parte del planeta está cubierto por una superficie gélida. Todo bicho viviente debe emigrar a tierras más cálidas para sobrevivir.</p></div></div>
+      <div class="item"><img src="../imagenes/osos.webp" alt="Tierra de osos"><div class="info"><h3>Tierra de osos</h3><p>es una película animada de Disney que narra la historia de Kenai, un joven que, tras matar a un oso, es transformado en uno para aprender sobre el amor y la comprensión.</p></div></div>
+      <div class="item"><img src="../imagenes/viaje.jpg" alt="El viaje del emperador"><div class="info"><h3>El viaje del emperador</h3><p>Documental sobre la emigración de los pingüinos en la Antártida. Cientos de miles de pingüinos Emperador abandonan la seguridad del océano para adentrarse en la desértica tierra helada.</p></div></div>
+      <div class="item"><img src="../imagenes/happy feet.jpg" alt="Happy Feet"><div class="info"><h3>Happy Feet</h3><p>es una película animada que sigue la historia de Mumble, un pingüino emperador que, a pesar de no poder cantar, destaca por su increíble talento para el baile.</p></div></div>
+      <div class="item"><img src="../imagenes/tierra.webp" alt="Tierra, la película de nuestro planeta"><div class="info"><h3>Tierra, la película de nuestro planeta</h3><p>es una película documental que nos permite conocer cómo los osos polares, los elefantes africanos y las ballenas jorobadas logran superar los peligros de su entorno para asegurar la supervivencia de su especie.</p></div></div>
+      <div class="item"><img src="../imagenes/avatar.jpg" alt="Avatar"><div class="info"><h3>Avatar</h3><p> un ex-marine condenado a vivir en una silla de ruedas, sigue siendo, a pesar de ello, un auténtico guerrero. Precisamente por ello ha sido designado para ir a Pandora, donde algunas empresas están extrayendo un mineral extraño que podría resolver la crisis energética de la Tierra.</p></div></div>
+      <div class="item"><img src="../imagenes/minusculos.jpeg" alt="Minúsculos"><div class="info"><h3>Minúsculos: El valle de las hormigas perdidas</h3><p>En un tranquilo bosque, una pequeña mariquita se ve atrapada en una épica batalla entre dos colonias de hormigas por el botín más dulce: una caja de azúcar abandonada.</p></div></div>
+      <div class="item"><img src="../imagenes/efrain.jpeg" alt="Efraín"><div class="info"><h3>Efraín</h3><p>cuenta la historia de un niño etíope que, tras perder a su madre, encuentra consuelo y esperanza en su inseparable oveja. A través de su viaje en un paisaje lleno de contrastes, la película resalta la conexión profunda entre el ser humano y la naturaleza.</p></div></div>
+      <div class="item"><img src="../imagenes/selva.jpeg" alt="El libro de la selva"><div class="info"><h3>El libro de la selva</h3><p>narra las aventuras de Mowgli, un niño criado por lobos en la selva india. Junto a sus amigos Baloo, el oso, y Bagheera, la pantera, aprende las leyes de la naturaleza mientras enfrenta peligros y descubre su lugar entre los animales y los humanos.</p></div></div>
+      <div class="item"><img src="../imagenes/documental.webp" alt="Antes que sea tarde"><div class="info"><h3>Antes que sea tarde</h3><p>sigue al actor Leonardo DiCaprio en un viaje por el mundo para mostrar los impactos reales del cambio climático.</p></div></div>
+    </div>
+    <button class="flecha der" onclick="mover('peliculas', 1)">&#10095;</button>
+  </div>
+<p style="text-align:center; font-size: 0.8em; color: #555; margin-top: 15px;">
+Las imágenes de las películas son propiedad de sus respectivos estudios. 
+Se utilizan únicamente con fines educativos y sin ánimo de lucro.
+</p>
+
+  <!-- Canciones -->
+  <h2>🎵 Canciones recomendadas</h2>
+  <div class="contenedor" id="canciones">
+    <button class="flecha izq" onclick="mover('canciones', -1)">&#10094;</button>
+    <div class="carrusel">
+      <div class="item"><img src="../imagenes/lava.webp" alt="Lava"><div class="info"><h3>Lava</h3><p>Disney</p></div></div>
+      <div class="item"><img src="../imagenes/the seed.webp" alt="The Seed"><div class="info"><h3>The Seed</h3><p>AURORA</p></div></div>
+      <div class="item"><img src="../imagenes/aurora.webp" alt="Inhale Exhale"><div class="info"><h3>Inhale, Exhale</h3><p>AURORA</p></div></div>
+      <div class="item"><img src="../imagenes/earthsong.webp" alt="Earth Song"><div class="info"><h3>Earth Song</h3><p>Michael Jackson</p></div></div>
+      <div class="item"><img src="../imagenes/latinoamerica.jpg" alt="Latinoamérica"><div class="info"><h3>Latinoamérica</h3><p>Calle 13</p></div></div>
+      <div class="item"><img src="../imagenes/MANA.webp" alt="¿Dónde jugarán los niños?"><div class="info"><h3>¿Dónde jugarán los niños?</h3><p>Maná</p></div></div>
+      <div class="item"><img src="../imagenes/Amazonia.webp" alt="Amazonia"><div class="info"><h3>In the Forest</h3><p>Gojira</p></div></div>
+      <div class="item"><img src="../imagenes/Allthegood.webp" alt="All the good girls go to hell"><div class="info"><h3>All the good girls go to hell</h3><p>Billie Eilish</p></div></div>
+      <div class="item"><img src="../imagenes/enelrio.jpg" alt="En el Río"><div class="info"><h3>En el Río</h3><p>Amaral</p></div></div>
+      <div class="item"><img src="../imagenes/apocalipto.webp" alt="Apocalíptico"><div class="info"><h3>Apocalíptico</h3><p>Residente</p></div></div>
+      <div class="item"><img src="../imagenes/thewaterisfine.jpg" alt="The Water is Fine"><div class="info"><h3>The Water is Fine</h3><p>Chloe Ament</p></div></div>
+    </div>
+    <button class="flecha der" onclick="mover('canciones', 1)">&#10095;</button>
+  </div>
+<p style="text-align:center; font-size: 0.8em; color: #555; margin-top: 15px;">
+Las imágenes y canciones mostradas son propiedad de sus respectivos artistas y discográficas. 
+Se utilizan únicamente con fines educativos y sin ánimo de lucro.
+</p>
+<script>
+let indicePeliculas = 0;
+let indiceCanciones = 0;
+
+function mover(id, dir) {
+  const contenedor = document.getElementById(id).querySelector(".carrusel");
+  const items = contenedor.children.length;
+  const itemWidth = 320; // ancho aprox. del item
+  if (id === "peliculas") {
+    indicePeliculas = (indicePeliculas + dir + items) % items;
+    contenedor.style.transform = `translateX(-${indicePeliculas * itemWidth}px)`;
+  } else {
+    indiceCanciones = (indiceCanciones + dir + items) % items;
+    contenedor.style.transform = `translateX(-${indiceCanciones * itemWidth}px)`;
+  }
+}
+
+    const usuario = sessionStorage.getItem('usuario');
+    if (usuario !== "user") {
+        alert('Acceso denegado. Redirigiendo...');
+        window.location.href = '../index.html';
+    }
+</script>
+<!-- Botón regresar -->
+<button class="btn-back" id="btnBack" aria-label="Regresar a la página anterior" title="Regresar">
+  <!-- Flecha SVG -->
+  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+    <path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <span class="btn-back__text">Regresar</span>
+</button>
+
+<style>
+  /* Estilos del botón */
+  .btn-back{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 12px;
+    border-radius:8px;
+    border: none;
+    background: #0b74da;      /* color de fondo (cambiar aquí) */
+    color: white;             /* color del texto y la flecha */
+    font-weight:600;
+    cursor:pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn-back svg{
+    display:block;
+  }
+
+  .btn-back:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(11,116,218,0.18);
+  }
+
+  .btn-back:active{
+    transform: translateY(0);
+    opacity: .95;
+  }
+
+  /* Para versiones móviles (más pequeño) */
+  @media (max-width:480px){
+    .btn-back{ padding:6px 10px; border-radius:7px; }
+    .btn-back__text{ font-size:14px; }
+  }
+
+  /* Si quieres que el botón sea transparente con borde */
+  .btn-back--ghost{
+    background: transparent;
+    border: 1.5px solid #0b74da;
+    color: #0b74da;
+    box-shadow: none;
+  }
+</style>
+
+<script>
+  (function(){
+    const btn = document.getElementById('btnBack');
+    btn.addEventListener('click', function(e){
+      // Intentar volver en el historial
+      if (window.history && window.history.length > 1) {
+        window.history.back();
+        return;
+      }
+      // Si no hay historial, usar document.referrer (si existe), sino ir a la raíz
+      if (document.referrer) {
+        // Si el referrer es del mismo dominio preféreselo (evita abrir en sitios externos)
+        try {
+          const refUrl = new URL(document.referrer);
+          // Opción: comprobar dominio actual
+          if (refUrl.hostname === location.hostname) {
+            location.href = document.referrer;
+            return;
+          }
+        } catch (err) { /* ignorar */ }
+
+        // Si no es mismo dominio, aún podemos redirigir a referrer:
+        location.href = document.referrer;
+        return;
+      }
+
+      // Fallback: ir a la página principal (cambia esta URL si quieres otra)
+      location.href = '/';
+    });
+  })();
+</script>
+
+</body>
+</html>

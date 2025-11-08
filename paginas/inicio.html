@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<title>I.E. CEFA </title>
+ <link rel="icon" type="image/x-icon" href="../imagenes/r3.jpg">
+<link rel="stylesheet" type="text/css" href="../css/inicio.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<meta http-equiv="x-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<style>
+    body{ 
+         margin-top:100px;
+         background-image: url('https://cdn.pixabay.com/photo/2018/02/15/14/37/paper-3155438_960_720.jpg'); 
+    background-size:cover;
+    }
+
+    html, body {
+    margin: 0;
+    padding: 0;
+}
+
+
+.navbar {
+    background-color: #333;
+    overflow: hidden;
+    position: fixed; 
+    top: 0; 
+    width: 100%;
+    z-index: 1000; 
+}
+        @keyframes colorChange {
+            0% {
+                color: 000000;
+            }
+            25% {
+                color: #aecda3;
+            }
+            50% {
+                color: #b4e2a4;
+            }
+            75% {
+                color: #b9f6a4;
+            }
+            100% {
+                color: #b4dcb0;
+            }
+        }
+        .r3 {
+            font-size: 10em; 
+            font-weight: bold;
+            animation: colorChange 7s infinite;
+        }
+
+</style></head>
+<style>
+    body{ 
+         margin-top:100px;
+         background-image: url('https://cdn.pixabay.com/photo/2018/02/15/14/37/paper-3155438_960_720.jpg'); 
+    background-size:cover;
+    }
+
+    html, body {
+    margin: 0;
+    padding: 0;
+}
+
+
+.navbar {
+    background-color: #333;
+    overflow: hidden;
+    position: fixed; 
+    top: 0; 
+    width: 100%;
+    z-index: 1000; 
+}
+        @keyframes colorChange {
+            0% {
+                color: 000000;
+            }
+            25% {
+                color: #aecda3;
+            }
+            50% {
+                color: #b4e2a4;
+            }
+            75% {
+                color: #b9f6a4;
+            }
+            100% {
+                color: #b4dcb0;
+            }
+        }
+        .r3 {
+            font-size: 10em; 
+            font-weight: bold;
+            animation: colorChange 7s infinite;
+        }
+
+</style>
+<body>
+
+<nav class="navbar">
+     <ul>
+    <li>
+    <a href="https://scratch.mit.edu/projects/1061516595/fullscreen/" target="_blank">Juegos</a></li>
+      <li><a href="/paginas/comentario.html">Deja tu Comentario</a></li>
+      <li><a href="/paginas/resenas.html">Ver comentarios</a></li>
+      <li><a href="/paginas/muestra.html">Imagenes</a></li>
+      <li><a href="/paginas/recomendaciones.html">Recomendaciones</a></li>
+      <li>
+            <a href="#" onclick="cerrarSesion(); return false;">Cerrar Sesión</a>
+        </li>
+     </ul>
+</nav>
+          
+<center><p><span class="r3">r3</span></p></center>
+
+  <section id="info-section">
+        <h2>conceptos basicos</h2>
+        <div class="cuadros"> 
+            <div class="card">
+                <img src="../imagenes/recicly.png" class="card-img-top" alt="Ícono de reciclaje">
+                <div class="card-body">
+                    <h5 class="card-title">Reciclaje</h5>
+                    <p class="card-text">A través del reciclaje podemos lograr el desarrollo sostenible y el cumplimiento de los Objetivos de Desarrollo Sostenible, puesto que no solo busca la protección del medio ambiente y la detención de la sobreexplotación de los recursos naturales.</p> 
+                </div>
+            </div>
+            <div class="card">
+                <img src="../imagenes/reutilizar.png" class="card-img-top" alt="Ícono de reutilizar">
+                <div class="card-body">
+                    <h5 class="card-title">Reutilizar</h5>
+                    <p class="card-text">Reutilizar consiste en darle una segunda vida a los materiales u objetos antes de desecharlos. Así alargamos su vida útil y aprovechamos sus propiedades al máximo, reduciendo, también, los residuos que generamos.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../imagenes/reducy.png" class="card-img-top" alt="Ícono de reducir">
+                <div class="card-body">
+                    <h5 class="card-title">Reducir</h5>
+                    <p class="card-text">La Reducción ahorra la necesidad de extraer de nuevo recursos naturales y utilizar agua y energía para la obtención de nuevos materiales. Podemos reducir el consumo de productos con envoltorios innecesarios y envasados excesivos, con lo cual se generarán menos residuos.</p>
+                </div>        
+            </div>
+        </div>
+    </section>
+ </div> 
+<script>
+    function cerrarSesion() {
+        sessionStorage.clear();
+        window.location.href = '../index.html';
+    }
+    const usuario = sessionStorage.getItem('usuario');
+    if (usuario !== "user") {
+        alert('Acceso denegado. Redirigiendo...');
+        window.location.href = '../index.html';
+    }
+</script>
+  <footer>
+    <div style="text-align: center; padding: 15px; background-color: #69ae82; border-top: 1px solid #eee; font-family: Arial, sans-serif; font-size: 14px; color: #333;">
+        <p style="margin: 5px 0; font-weight: bold;">Institución Educativa Centro Formativo de Antioquia -CEFA-</p>
+        <p style="margin: 5px 0;">
+            Proyecto Pía: R3 
+            <p>Creadoras: Manuela Durango Sena, Omarlis Balcucho Fernández, Isabella Ramírez Álzate, Angie Rentería Lozano, Sara Sofia Mosquera Pérez</p>
+        </p>
+        <p style="margin: 5px 0;">Media Técnica: Desarrollo de Software</p>
+        <div style="margin-top: 10px;">
+            <span style="margin: 0 10px;">
+               <a href="https://www.instagram.com/centroformativodeantioquia/" target="_blank" style="color: #1c3f65; text-decoration: none;">Instagram cefa</a>
+            </span>
+            <span style="margin: 0 10px;">
+                 C. 50 #41-55, La Candelaria
+            </span>
+            <span style="margin: 0 10px;">
+                Correo: <a href="mailto:ie.cefa@medellin.gov.co" style="color: #214a75; text-decoration: none;">ie.cefa@medellin.gov.co</a>
+            </span>
+            <span style="margin: 0 10px;">
+                WhatsApp: 3116016970
+            </span>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

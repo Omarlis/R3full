@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Administrador</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+  <script>
+    // Verifica que el usuario es admin (basado en sessionStorage)
+    const is_admin = sessionStorage.getItem('usuario');
+    if (is_admin !== "admin") {
+      alert('Acceso denegado. Redirigiendo...');
+      window.location.href = '../index.html';
+    }
+  </script>
+
+  <div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1>Panel de Administración de Comentarios</h1>
+      <button class="btn btn-outline-danger" onclick="cerrarSesion()">Cerrar sesión</button>
+    </div>
+    <div id="tabla-container"></div>
+  </div>
+
+  <script>
+    // -------- Configuración --------
+    const API_BASE = 'http://localhost:4000/api/reviews';  // ruta base del API
+      // reemplaza con el token real que obtienes en login
+    const headersAuth = {
+      'Content-Type': 'application/json'
+    };
+
+    // -------- Funciones utilitarias --------
+    function cerrarSesion() {
+      sessionStorage.clear();
+      window.location.href = '../index.html';
+    }
+
+    function renderMensaje(mensaje, tipo = 'info') {
+      const cont = document.getElementById('tabla-container');
+      cont.innerHTML = `<div class="alert alert-${tipo}" role="alert">${mensaje}</div>`;
+    }
+
+    // Obtener todos los comentarios (modo admin)
+    async function obtenerComentarios() {
+      renderMensaje('Cargando comentarios...', 'secondary');
+      try {
+        const resp = await fetch(`${API_BASE}/admin`, {
+          method: 'GET',
+          headers: headersAuth
+        });
+
+        if (resp.status === 403) {
+          renderMensaje('Acceso denegado. No tienes permisos de administrador.', 'danger');
+          return [];
+        }
+        if (!resp.ok) {
+          throw new Error(`HTTP ${resp.status}`);
+        }
+        const datos = await resp.json();
+        return datos;
+      } catch (error) {
+        console.error('Error al obtener comentarios:', error);
+        renderMensaje(`Error de conexión: ${error.message}`, 'danger');
+        return [];
+      }
+    }
+
+    // Cambiar visibilidad de una reseña
+    async function cambiarVisibilidad(id, visible) {
+      try {
+        const resp = await fetch(`${API_BASE}/visibilidad`, {
+          method: 'PUT',
+          headers: headersAuth,
+          body: JSON.stringify({ id, visible })
+        });
+        if (!resp.ok) {
+          const err = await resp.json();
+          throw new Error(err.error || `HTTP ${resp.status}`);
+        }
+        return true;
+      } catch (error) {
+        console.error('Error al cambiar visibilidad:', error);
+        alert(`Error al cambiar visibilidad: ${error.message}`);
+        return false;
+      }
+    }
+
+    // Eliminar una reseña
+    async function eliminarComentario(id) {
+      if (!confirm(`¿Estás seguro de eliminar el comentario con ID ${id}?`)) return;
+
+      try {
+        const resp = await fetch(`${API_BASE}/${id}`, {
+          method: 'DELETE',
+          headers: headersAuth
+        });
+        if (!resp.ok) {
+          const err = await resp.json();
+          throw new Error(err.error || `HTTP ${resp.status}`);
+        }
+        alert('Comentario eliminado con éxito.');
+        cargarYRenderizar();  // recargar tabla
+      } catch (error) {
+        console.error('Error al eliminar comentario:', error);
+        alert(`Error al eliminar: ${error.message}`);
+      }
+    }
+
+    // Función para dibujar la tabla con los comentarios
+    async function renderizarTabla(comentarios) {
+      if (comentarios.length === 0) {
+        renderMensaje('No hay comentarios para mostrar.', 'info');
+        return;
+      }
+
+      let html = `
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>#</th>
+              <th>ID Usuario</th>
+              <th>Contenido</th>
+              <th>Visible</th>
+              <th>Fecha Creado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      comentarios.forEach(c => {
+        const fecha = new Date(c.creado_en).toLocaleString('es-CO');
+        const contenidoCorto = c.contenido.length > 80
+          ? c.contenido.substring(0, 80) + '...'
+          : c.contenido;
+
+        const badgeClass = c.visible ? 'bg-success' : 'bg-secondary';
+        const badgeText = c.visible ? 'Sí' : 'No';
+
+        html += `
+          <tr>
+            <td>${c.id}</td>
+            <td>${c.usuario_id}</td>
+            <td>${contenidoCorto}</td>
+            <td>
+              <span class="badge ${badgeClass}">${badgeText}</span>
+            </td>
+            <td>${fecha}</td>
+            <td>
+              <!-- Botón para alternar visibilidad -->
+              <button class="btn btn-sm btn-${c.visible ? 'warning' : 'success'} me-2"
+                onclick="toggleVisibilidad(${c.id}, ${c.visible})">
+                ${c.visible ? '<i class="bi bi-eye-slash"></i> Ocultar' : '<i class="bi bi-eye"></i> Mostrar'}
+              </button>
+              <!-- Botón eliminar -->
+              <button class="btn btn-sm btn-danger" onclick="eliminarComentario(${c.id})">
+                <i class="bi bi-trash"></i> Eliminar
+              </button>
+            </td>
+          </tr>
+        `;
+      });
+
+      html += `</tbody></table>`;
+      document.getElementById('tabla-container').innerHTML = html;
+    }
+
+    // Función que alterna visibilidad y recarga tabla si fue exitoso
+    async function toggleVisibilidad(id, currentVisible) {
+      const nuevaVisibilidad = !currentVisible;
+      const ok = await cambiarVisibilidad(id, nuevaVisibilidad);
+      if (ok) {
+        cargarYRenderizar();
+      }
+    }
+
+    // Función principal para cargar los datos y mostrar la tabla
+    async function cargarYRenderizar() {
+      const comentarios = await obtenerComentarios();
+      // Si hubo error grave, obtenerComentarios ya puso un mensaje
+      if (comentarios.length >= 0) {
+        renderizarTabla(comentarios);
+      }
+    }
+
+    // Al cargar el DOM, inicializa la tabla
+    document.addEventListener('DOMContentLoaded', () => {
+      cargarYRenderizar();
+    });
+
+    // Hacer globales algunas funciones para que puedan usarse desde HTML inline
+    window.eliminarComentario = eliminarComentario;
+    window.toggleVisibilidad = toggleVisibilidad;
+  </script>
+</body>
+</html>
